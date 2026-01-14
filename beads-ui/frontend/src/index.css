@@ -4,48 +4,167 @@
 
 @layer base {
   :root {
+    /* Base colors */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+
+    /* Surface colors - GitHub-inspired layered elevation */
+    --surface: 0 0% 100%;
+    --surface-raised: 210 20% 98%;
+    --surface-overlay: 0 0% 100%;
+    --surface-inset: 210 20% 96%;
+
+    /* Card & Popover */
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
+
+    /* Primary action colors */
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
+
+    /* Secondary colors */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Muted colors */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+
+    /* Accent colors */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* Destructive colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
+    /* Border & Input */
     --border: 214.3 31.8% 91.4%;
+    --border-muted: 214.3 31.8% 94%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
+
+    /* Text colors - semantic */
+    --text: 222.2 84% 4.9%;
+    --text-muted: 215.4 16.3% 46.9%;
+    --text-subtle: 215 14% 64%;
+
+    /* Status colors - GitHub/GitLab inspired */
+    --status-open: 142 71% 45%;
+    --status-open-foreground: 0 0% 100%;
+    --status-open-muted: 142 76% 94%;
+
+    --status-in-progress: 213 94% 55%;
+    --status-in-progress-foreground: 0 0% 100%;
+    --status-in-progress-muted: 213 97% 94%;
+
+    --status-blocked: 0 84% 60%;
+    --status-blocked-foreground: 0 0% 100%;
+    --status-blocked-muted: 0 93% 94%;
+
+    --status-closed: 215 14% 50%;
+    --status-closed-foreground: 0 0% 100%;
+    --status-closed-muted: 215 14% 94%;
+
+    /* Priority colors */
+    --priority-critical: 0 84% 60%;
+    --priority-high: 25 95% 53%;
+    --priority-medium: 48 96% 53%;
+    --priority-low: 142 71% 45%;
+    --priority-backlog: 215 14% 64%;
+
+    /* Sidebar colors - GitHub-inspired */
+    --sidebar: 216 28% 7%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-muted: 215 20% 65%;
+    --sidebar-accent: 216 28% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 216 28% 15%;
+
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 222 28% 6%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+
+    /* Surface colors - dark mode elevation */
+    --surface: 222 28% 6%;
+    --surface-raised: 222 25% 9%;
+    --surface-overlay: 222 25% 11%;
+    --surface-inset: 222 30% 4%;
+
+    /* Card & Popover */
+    --card: 222 25% 9%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 222 25% 11%;
     --popover-foreground: 210 40% 98%;
+
+    /* Primary action colors */
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
+
+    /* Secondary colors */
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+
+    /* Muted colors */
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+
+    /* Accent colors */
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+
+    /* Destructive colors */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+
+    /* Border & Input */
     --border: 217.2 32.6% 17.5%;
+    --border-muted: 217 30% 12%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Text colors - semantic */
+    --text: 210 40% 98%;
+    --text-muted: 215 20.2% 65.1%;
+    --text-subtle: 215 16% 47%;
+
+    /* Status colors - dark mode adjusted */
+    --status-open: 142 71% 45%;
+    --status-open-foreground: 0 0% 100%;
+    --status-open-muted: 142 50% 15%;
+
+    --status-in-progress: 213 94% 55%;
+    --status-in-progress-foreground: 0 0% 100%;
+    --status-in-progress-muted: 213 60% 18%;
+
+    --status-blocked: 0 72% 51%;
+    --status-blocked-foreground: 0 0% 100%;
+    --status-blocked-muted: 0 50% 18%;
+
+    --status-closed: 215 14% 50%;
+    --status-closed-foreground: 0 0% 100%;
+    --status-closed-muted: 215 20% 20%;
+
+    /* Priority colors - same in dark mode */
+    --priority-critical: 0 72% 51%;
+    --priority-high: 25 95% 53%;
+    --priority-medium: 48 96% 53%;
+    --priority-low: 142 71% 45%;
+    --priority-backlog: 215 14% 64%;
+
+    /* Sidebar colors - dark mode */
+    --sidebar: 222 30% 4%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-muted: 215 20% 55%;
+    --sidebar-accent: 222 28% 10%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 25% 12%;
   }
 }
 
