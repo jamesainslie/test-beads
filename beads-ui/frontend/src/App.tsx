@@ -1,11 +1,26 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, LayoutDashboard, List, GitBranch } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Moon, Sun, LayoutDashboard, List, GitBranch, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/theme-provider';
+import {
+  CollapsibleSidebar,
+  SIDEBAR_WIDTH_EXPANDED,
+  SIDEBAR_WIDTH_COLLAPSED,
+  type SidebarNavItem,
+} from '@/components/ui/collapsible-sidebar';
 import DashboardPage from '@/pages/DashboardPage';
 import ListPage from '@/pages/ListPage';
 import GraphPage from '@/pages/GraphPage';
 import { cn } from '@/lib/utils';
+
+const SIDEBAR_STORAGE_KEY = 'sidebar-collapsed';
+
+const navItems: SidebarNavItem[] = [
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/list', label: 'Issues', icon: List },
+  { to: '/graph', label: 'Dependencies', icon: GitBranch },
+];
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -23,66 +38,102 @@ function ThemeToggle() {
   );
 }
 
-function NavLink({
-  to,
-  children,
-  icon: Icon,
-}: {
-  to: string;
-  children: React.ReactNode;
-  icon: React.ComponentType<{ className?: string }>;
-}) {
-  const location = useLocation();
-  const isActive = location.pathname === to;
-
+function SidebarHeader({ isCollapsed }: { isCollapsed: boolean }) {
   return (
-    <Link
-      to={to}
-      className={cn(
-        'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
-        isActive
-          ? 'bg-primary text-primary-foreground'
-          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-      )}
-    >
-      <Icon className="h-4 w-4" />
-      {children}
-    </Link>
+    <div className="flex items-center gap-2">
+      <div className="w-8 h-8 rounded-lg bg-sidebar-accent flex items-center justify-center flex-shrink-0">
+        <span className="text-sidebar-accent-foreground font-bold text-sm">B</span>
+      </div>
+      {!isCollapsed && <span className="font-semibold text-sidebar-foreground">Beads</span>}
+    </div>
   );
 }
 
 export default function App() {
-  return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-bold">Beads Dashboard</h1>
-            <nav className="flex items-center gap-1">
-              <NavLink to="/" icon={LayoutDashboard}>
-                Dashboard
-              </NavLink>
-              <NavLink to="/list" icon={List}>
-                Issues
-              </NavLink>
-              <NavLink to="/graph" icon={GitBranch}>
-                Dependencies
-              </NavLink>
-            </nav>
-          </div>
-          <ThemeToggle />
-        </div>
-      </header>
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
+  });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/graph" element={<GraphPage />} />
-        </Routes>
-      </main>
+  // Listen for sidebar collapse changes from localStorage
+  useEffect(() => {
+    const checkCollapsed = () => {
+      const isCollapsed = localStorage.getItem(SIDEBAR_STORAGE_KEY) === 'true';
+      setSidebarCollapsed(isCollapsed);
+    };
+
+    // Check periodically for changes (sidebar toggle updates localStorage)
+    const interval = setInterval(checkCollapsed, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  const sidebarWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
+
+  return (
+    <div className="flex h-screen overflow-hidden bg-background">
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block fixed left-0 top-0 h-full z-30">
+        <CollapsibleSidebar
+          navItems={navItems}
+          header={<SidebarHeader isCollapsed={sidebarCollapsed} />}
+        />
+      </div>
+
+      {/* Mobile Sidebar Overlay */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Sidebar */}
+      <div
+        className={cn(
+          'fixed left-0 top-0 h-full z-50 transition-transform duration-200 md:hidden',
+          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <CollapsibleSidebar
+          navItems={navItems}
+          header={<SidebarHeader isCollapsed={false} />}
+        />
+      </div>
+
+      {/* Main area */}
+      <div
+        className="flex flex-col flex-1 min-h-screen transition-[margin] duration-200 ease-in-out md:ml-[var(--sidebar-width)]"
+        style={{ '--sidebar-width': `${sidebarWidth}px` } as React.CSSProperties}
+      >
+        {/* Top Bar - 48px height (h-12) */}
+        <header className="h-12 border-b bg-card flex items-center justify-between px-4 flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+            <h1 className="text-lg font-semibold">Beads Dashboard</h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+          </div>
+        </header>
+
+        {/* Scrollable content area */}
+        <main className="flex-1 overflow-y-auto p-6">
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/list" element={<ListPage />} />
+            <Route path="/graph" element={<GraphPage />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }
