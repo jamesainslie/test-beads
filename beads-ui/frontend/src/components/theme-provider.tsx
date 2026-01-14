@@ -34,15 +34,18 @@ export function ThemeProvider({
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
 
+    let resolvedTheme: 'light' | 'dark';
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light';
-      root.classList.add(systemTheme);
-      return;
+    } else {
+      resolvedTheme = theme;
     }
 
-    root.classList.add(theme);
+    // Set both class and data-theme attribute for CSS selector compatibility
+    root.classList.add(resolvedTheme);
+    root.setAttribute('data-theme', resolvedTheme);
   }, [theme]);
 
   const value = {
