@@ -4,76 +4,121 @@
 
 @layer base {
   :root {
-    /* Base colors */
+    /* ===========================================
+       Design System Color Tokens
+       Using hex values from design spec
+       =========================================== */
+
+    /* Base Palette - Light Theme */
+    --color-bg: #ffffff;
+    --color-surface: #f6f8fa;
+    --color-border: #d0d7de;
+    --color-text: #1f2328;
+    --color-text-muted: #656d76;
+
+    /* Accent (Orange/Amber) */
+    --color-accent: #f59e0b;
+    --color-accent-hover: #d97706;
+    --color-accent-subtle: #fef3c7;
+
+    /* Status Colors - Light Theme */
+    --color-status-open-bg: #ddf4ff;
+    --color-status-open-dot: #2da44e;
+    --color-status-in-progress-bg: #fff8c5;
+    --color-status-in-progress-dot: #bf8700;
+    --color-status-blocked-bg: #ffebe9;
+    --color-status-blocked-dot: #f85149;
+    --color-status-closed-bg: #f6f8fa;
+    --color-status-closed-dot: #8b949e;
+
+    /* Priority Badge Colors */
+    --color-priority-critical-bg: #f85149;
+    --color-priority-critical-text: #ffffff;
+    --color-priority-high-bg: #f59e0b;
+    --color-priority-high-text: #1f2328;
+    --color-priority-medium-bg: #656d76;
+    --color-priority-medium-text: #ffffff;
+    --color-priority-low-bg: #f6f8fa;
+    --color-priority-low-text: #656d76;
+    --color-priority-backlog-bg: transparent;
+    --color-priority-backlog-text: #656d76;
+    --color-priority-backlog-border: #d0d7de;
+
+    /* ===========================================
+       shadcn/ui Compatible Variables (HSL format)
+       These map to the design system tokens
+       =========================================== */
+
+    /* Base colors - mapped from design tokens */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 215 28% 14%;
 
     /* Surface colors - GitHub-inspired layered elevation */
-    --surface: 0 0% 100%;
-    --surface-raised: 210 20% 98%;
+    --surface: 210 17% 98%;
+    --surface-raised: 210 17% 98%;
     --surface-overlay: 0 0% 100%;
-    --surface-inset: 210 20% 96%;
+    --surface-inset: 210 17% 96%;
 
     /* Card & Popover */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 28% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 28% 14%;
 
-    /* Primary action colors */
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary action colors - using accent orange */
+    --primary: 38 92% 50%;
+    --primary-foreground: 0 0% 100%;
 
     /* Secondary colors */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 17% 98%;
+    --secondary-foreground: 215 28% 14%;
 
     /* Muted colors */
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 17% 98%;
+    --muted-foreground: 215 9% 43%;
 
-    /* Accent colors */
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent colors - orange/amber */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
 
     /* Destructive colors */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Border & Input */
-    --border: 214.3 31.8% 91.4%;
-    --border-muted: 214.3 31.8% 94%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Border & Input - mapped from design tokens */
+    --border: 212 18% 84%;
+    --border-muted: 212 18% 88%;
+    --input: 212 18% 84%;
+    --ring: 38 92% 50%;
 
-    /* Text colors - semantic */
-    --text: 222.2 84% 4.9%;
-    --text-muted: 215.4 16.3% 46.9%;
-    --text-subtle: 215 14% 64%;
+    /* Text colors - semantic (HSL equivalents) */
+    --text: 215 28% 14%;
+    --text-muted: 215 9% 43%;
+    --text-subtle: 215 9% 55%;
 
-    /* Status colors - GitHub/GitLab inspired */
+    /* Status colors - HSL format for Tailwind */
     --status-open: 142 71% 45%;
     --status-open-foreground: 0 0% 100%;
-    --status-open-muted: 142 76% 94%;
+    --status-open-muted: 200 100% 93%;
 
-    --status-in-progress: 213 94% 55%;
-    --status-in-progress-foreground: 0 0% 100%;
-    --status-in-progress-muted: 213 97% 94%;
+    --status-in-progress: 46 100% 57%;
+    --status-in-progress-foreground: 215 28% 14%;
+    --status-in-progress-muted: 48 100% 89%;
 
-    --status-blocked: 0 84% 60%;
+    --status-blocked: 2 83% 63%;
     --status-blocked-foreground: 0 0% 100%;
-    --status-blocked-muted: 0 93% 94%;
+    --status-blocked-muted: 4 100% 96%;
 
-    --status-closed: 215 14% 50%;
+    --status-closed: 212 9% 58%;
     --status-closed-foreground: 0 0% 100%;
-    --status-closed-muted: 215 14% 94%;
+    --status-closed-muted: 210 17% 98%;
 
-    /* Priority colors */
-    --priority-critical: 0 84% 60%;
-    --priority-high: 25 95% 53%;
-    --priority-medium: 48 96% 53%;
+    /* Priority colors - HSL format */
+    --priority-critical: 2 83% 63%;
+    --priority-high: 38 92% 50%;
+    --priority-medium: 215 9% 43%;
     --priority-low: 142 71% 45%;
-    --priority-backlog: 215 14% 64%;
+    --priority-backlog: 215 9% 55%;
 
     /* Sidebar colors - GitHub-inspired */
     --sidebar: 216 28% 7%;
@@ -86,85 +131,242 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  /* Dark theme using data-theme attribute */
+  [data-theme="dark"] {
+    /* Base Palette - Dark Theme */
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-border: #30363d;
+    --color-text: #e6edf3;
+    --color-text-muted: #8b949e;
+
+    /* Accent (Orange/Amber) - Dark Theme */
+    --color-accent: #f59e0b;
+    --color-accent-hover: #d97706;
+    --color-accent-subtle: #422006;
+
+    /* Status Colors - Dark Theme */
+    --color-status-open-bg: #1f3d5c;
+    --color-status-open-dot: #2da44e;
+    --color-status-in-progress-bg: #3d3117;
+    --color-status-in-progress-dot: #bf8700;
+    --color-status-blocked-bg: #3d1f20;
+    --color-status-blocked-dot: #f85149;
+    --color-status-closed-bg: #21262d;
+    --color-status-closed-dot: #8b949e;
+
+    /* Priority Badge Colors - Dark Theme */
+    --color-priority-critical-bg: #f85149;
+    --color-priority-critical-text: #ffffff;
+    --color-priority-high-bg: #f59e0b;
+    --color-priority-high-text: #1f2328;
+    --color-priority-medium-bg: #656d76;
+    --color-priority-medium-text: #ffffff;
+    --color-priority-low-bg: #21262d;
+    --color-priority-low-text: #8b949e;
+    --color-priority-backlog-bg: transparent;
+    --color-priority-backlog-text: #8b949e;
+    --color-priority-backlog-border: #30363d;
+
+    /* shadcn/ui Compatible Variables - Dark Theme */
+
     /* Base colors */
-    --background: 222 28% 6%;
-    --foreground: 210 40% 98%;
+    --background: 215 28% 7%;
+    --foreground: 213 27% 93%;
 
     /* Surface colors - dark mode elevation */
-    --surface: 222 28% 6%;
-    --surface-raised: 222 25% 9%;
-    --surface-overlay: 222 25% 11%;
-    --surface-inset: 222 30% 4%;
+    --surface: 215 22% 11%;
+    --surface-raised: 215 22% 11%;
+    --surface-overlay: 215 22% 14%;
+    --surface-inset: 215 28% 5%;
 
     /* Card & Popover */
-    --card: 222 25% 9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 25% 11%;
-    --popover-foreground: 210 40% 98%;
+    --card: 215 22% 11%;
+    --card-foreground: 213 27% 93%;
+    --popover: 215 22% 14%;
+    --popover-foreground: 213 27% 93%;
 
-    /* Primary action colors */
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Primary action colors - accent orange */
+    --primary: 38 92% 50%;
+    --primary-foreground: 0 0% 100%;
 
     /* Secondary colors */
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 215 22% 14%;
+    --secondary-foreground: 213 27% 93%;
 
     /* Muted colors */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 215 22% 14%;
+    --muted-foreground: 213 10% 61%;
 
     /* Accent colors */
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
 
     /* Destructive colors */
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 2 83% 63%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Border & Input */
-    --border: 217.2 32.6% 17.5%;
-    --border-muted: 217 30% 12%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 214 14% 22%;
+    --border-muted: 214 14% 18%;
+    --input: 214 14% 22%;
+    --ring: 38 92% 50%;
 
     /* Text colors - semantic */
-    --text: 210 40% 98%;
-    --text-muted: 215 20.2% 65.1%;
-    --text-subtle: 215 16% 47%;
+    --text: 213 27% 93%;
+    --text-muted: 213 10% 61%;
+    --text-subtle: 213 10% 50%;
 
     /* Status colors - dark mode adjusted */
     --status-open: 142 71% 45%;
     --status-open-foreground: 0 0% 100%;
-    --status-open-muted: 142 50% 15%;
+    --status-open-muted: 207 47% 24%;
 
-    --status-in-progress: 213 94% 55%;
+    --status-in-progress: 44 90% 37%;
     --status-in-progress-foreground: 0 0% 100%;
-    --status-in-progress-muted: 213 60% 18%;
+    --status-in-progress-muted: 40 46% 16%;
 
-    --status-blocked: 0 72% 51%;
+    --status-blocked: 2 83% 63%;
     --status-blocked-foreground: 0 0% 100%;
-    --status-blocked-muted: 0 50% 18%;
+    --status-blocked-muted: 356 44% 18%;
 
-    --status-closed: 215 14% 50%;
+    --status-closed: 213 10% 61%;
     --status-closed-foreground: 0 0% 100%;
-    --status-closed-muted: 215 20% 20%;
+    --status-closed-muted: 215 18% 16%;
 
-    /* Priority colors - same in dark mode */
-    --priority-critical: 0 72% 51%;
-    --priority-high: 25 95% 53%;
-    --priority-medium: 48 96% 53%;
+    /* Priority colors - dark mode */
+    --priority-critical: 2 83% 63%;
+    --priority-high: 38 92% 50%;
+    --priority-medium: 213 10% 61%;
     --priority-low: 142 71% 45%;
-    --priority-backlog: 215 14% 64%;
+    --priority-backlog: 213 10% 50%;
 
     /* Sidebar colors - dark mode */
-    --sidebar: 222 30% 4%;
+    --sidebar: 215 30% 4%;
     --sidebar-foreground: 210 20% 90%;
     --sidebar-muted: 215 20% 55%;
-    --sidebar-accent: 222 28% 10%;
+    --sidebar-accent: 215 28% 10%;
     --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 25% 12%;
+    --sidebar-border: 215 22% 12%;
+  }
+
+  /* Support .dark class for backwards compatibility */
+  .dark {
+    /* Base Palette - Dark Theme */
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-border: #30363d;
+    --color-text: #e6edf3;
+    --color-text-muted: #8b949e;
+
+    /* Accent (Orange/Amber) - Dark Theme */
+    --color-accent: #f59e0b;
+    --color-accent-hover: #d97706;
+    --color-accent-subtle: #422006;
+
+    /* Status Colors - Dark Theme */
+    --color-status-open-bg: #1f3d5c;
+    --color-status-open-dot: #2da44e;
+    --color-status-in-progress-bg: #3d3117;
+    --color-status-in-progress-dot: #bf8700;
+    --color-status-blocked-bg: #3d1f20;
+    --color-status-blocked-dot: #f85149;
+    --color-status-closed-bg: #21262d;
+    --color-status-closed-dot: #8b949e;
+
+    /* Priority Badge Colors - Dark Theme */
+    --color-priority-critical-bg: #f85149;
+    --color-priority-critical-text: #ffffff;
+    --color-priority-high-bg: #f59e0b;
+    --color-priority-high-text: #1f2328;
+    --color-priority-medium-bg: #656d76;
+    --color-priority-medium-text: #ffffff;
+    --color-priority-low-bg: #21262d;
+    --color-priority-low-text: #8b949e;
+    --color-priority-backlog-bg: transparent;
+    --color-priority-backlog-text: #8b949e;
+    --color-priority-backlog-border: #30363d;
+
+    /* shadcn/ui Compatible Variables - Dark Theme */
+
+    /* Base colors */
+    --background: 215 28% 7%;
+    --foreground: 213 27% 93%;
+
+    /* Surface colors - dark mode elevation */
+    --surface: 215 22% 11%;
+    --surface-raised: 215 22% 11%;
+    --surface-overlay: 215 22% 14%;
+    --surface-inset: 215 28% 5%;
+
+    /* Card & Popover */
+    --card: 215 22% 11%;
+    --card-foreground: 213 27% 93%;
+    --popover: 215 22% 14%;
+    --popover-foreground: 213 27% 93%;
+
+    /* Primary action colors - accent orange */
+    --primary: 38 92% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary colors */
+    --secondary: 215 22% 14%;
+    --secondary-foreground: 213 27% 93%;
+
+    /* Muted colors */
+    --muted: 215 22% 14%;
+    --muted-foreground: 213 10% 61%;
+
+    /* Accent colors */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive colors */
+    --destructive: 2 83% 63%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 214 14% 22%;
+    --border-muted: 214 14% 18%;
+    --input: 214 14% 22%;
+    --ring: 38 92% 50%;
+
+    /* Text colors - semantic */
+    --text: 213 27% 93%;
+    --text-muted: 213 10% 61%;
+    --text-subtle: 213 10% 50%;
+
+    /* Status colors - dark mode adjusted */
+    --status-open: 142 71% 45%;
+    --status-open-foreground: 0 0% 100%;
+    --status-open-muted: 207 47% 24%;
+
+    --status-in-progress: 44 90% 37%;
+    --status-in-progress-foreground: 0 0% 100%;
+    --status-in-progress-muted: 40 46% 16%;
+
+    --status-blocked: 2 83% 63%;
+    --status-blocked-foreground: 0 0% 100%;
+    --status-blocked-muted: 356 44% 18%;
+
+    --status-closed: 213 10% 61%;
+    --status-closed-foreground: 0 0% 100%;
+    --status-closed-muted: 215 18% 16%;
+
+    /* Priority colors - dark mode */
+    --priority-critical: 2 83% 63%;
+    --priority-high: 38 92% 50%;
+    --priority-medium: 213 10% 61%;
+    --priority-low: 142 71% 45%;
+    --priority-backlog: 213 10% 50%;
+
+    /* Sidebar colors - dark mode */
+    --sidebar: 215 30% 4%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-muted: 215 20% 55%;
+    --sidebar-accent: 215 28% 10%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 22% 12%;
   }
 }
 
