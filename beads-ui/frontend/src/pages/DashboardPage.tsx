@@ -14,6 +14,7 @@ import {
   Bar,
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { StatCard } from '@/components/ui/stat-card';
 import { api, type Stats } from '@/lib/api';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
@@ -76,7 +77,16 @@ export default function DashboardPage() {
     }));
 
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="space-y-6">
+      {/* Status Summary Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard status="open" count={stats.statusCounts.open} />
+        <StatCard status="in_progress" count={stats.statusCounts.in_progress} />
+        <StatCard status="blocked" count={stats.statusCounts.blocked} />
+        <StatCard status="closed" count={stats.statusCounts.closed} />
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2">
       {/* Issues by Status */}
       <Card>
         <CardHeader>
@@ -219,29 +229,7 @@ export default function DashboardPage() {
         </CardContent>
       </Card>
 
-      {/* Summary Stats */}
-      <Card className="md:col-span-2">
-        <CardContent className="pt-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-              <p className="text-3xl font-bold">{stats.totalIssues}</p>
-              <p className="text-sm text-muted-foreground">Total Issues</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-green-500">{stats.statusCounts.open}</p>
-              <p className="text-sm text-muted-foreground">Open</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-blue-500">{stats.statusCounts.in_progress}</p>
-              <p className="text-sm text-muted-foreground">In Progress</p>
-            </div>
-            <div>
-              <p className="text-3xl font-bold text-red-500">{stats.statusCounts.blocked}</p>
-              <p className="text-sm text-muted-foreground">Blocked</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      </div>
     </div>
   );
 }
