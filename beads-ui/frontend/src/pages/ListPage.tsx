@@ -39,7 +39,7 @@ export default function ListPage() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, ...data }: { id: string } & Partial<Issue>) => api.updateIssue(id, data),
+    mutationFn: ({ id, ...data }: { id: string } & Parameters<typeof api.updateIssue>[1]) => api.updateIssue(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['issues'] });
       queryClient.invalidateQueries({ queryKey: ['stats'] });
