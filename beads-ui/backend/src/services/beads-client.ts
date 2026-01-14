@@ -24,6 +24,11 @@ export class BeadsClient {
       const socket = net.createConnection(this.socketPath);
       let responseData = '';
 
+      const cleanup = () => {
+        socket.removeAllListeners();
+        socket.destroy();
+      };
+
       socket.on('connect', () => {
         const request: RPCRequest = {
           operation,
@@ -35,32 +40,41 @@ export class BeadsClient {
 
       socket.on('data', (data) => {
         responseData += data.toString();
-      });
 
-      socket.on('end', () => {
-        try {
-          // Response might have multiple JSON objects, take the last complete one
-          const lines = responseData.trim().split('\n');
-          const lastLine = lines[lines.length - 1];
-          const response: RPCResponse = JSON.parse(lastLine);
+        // Try to parse response - daemon sends newline-delimited JSON
+        const lines = responseData.split('\n');
+        for (const line of lines) {
+          if (!line.trim()) continue;
 
-          if (response.success) {
-            resolve(response.data);
-          } else {
-            reject(new Error(response.error || 'RPC request failed'));
+          try {
+            const response: RPCResponse = JSON.parse(line);
+            cleanup();
+
+            if (response.success) {
+              resolve(response.data);
+            } else {
+              reject(new Error(response.error || 'RPC request failed'));
+            }
+            return;
+          } catch {
+            // Not complete JSON yet, keep reading
           }
-        } catch (error) {
-          reject(new Error(`Failed to parse RPC response: ${responseData}`));
         }
       });
 
+      socket.on('end', () => {
+        cleanup();
+        reject(new Error('Connection closed before response received'));
+      });
+
       socket.on('error', (error) => {
+        cleanup();
         reject(new Error(`Socket error: ${error.message}`));
       });
 
-      // Timeout after 30 seconds
-      socket.setTimeout(30000, () => {
-        socket.destroy();
+      // Timeout after 10 seconds
+      socket.setTimeout(10000, () => {
+        cleanup();
         reject(new Error('RPC request timed out'));
       });
     });

@@ -1,16 +1,8 @@
 import { Router } from 'express';
 import { BeadsClient } from '../services/beads-client.js';
+import { getSocketPath } from '../services/socket-path.js';
 
 export const issuesRouter = Router();
-
-const getSocketPath = () => {
-  const cwd = process.cwd();
-  // Navigate up to find .beads directory
-  const beadsDir = cwd.includes('beads-ui')
-    ? cwd.replace(/\/beads-ui.*$/, '/.beads/bd.sock')
-    : `${cwd}/.beads/bd.sock`;
-  return beadsDir;
-};
 
 // List issues
 issuesRouter.get('/', async (req, res) => {

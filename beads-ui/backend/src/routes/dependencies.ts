@@ -1,15 +1,8 @@
 import { Router } from 'express';
 import { BeadsClient } from '../services/beads-client.js';
+import { getSocketPath } from '../services/socket-path.js';
 
 export const dependenciesRouter = Router();
-
-const getSocketPath = () => {
-  const cwd = process.cwd();
-  const beadsDir = cwd.includes('beads-ui')
-    ? cwd.replace(/\/beads-ui.*$/, '/.beads/bd.sock')
-    : `${cwd}/.beads/bd.sock`;
-  return beadsDir;
-};
 
 // Get dependency graph data
 dependenciesRouter.get('/', async (req, res) => {
